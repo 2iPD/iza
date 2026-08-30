@@ -747,8 +747,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   if (fbc) trackingParams['fbc'] = fbc;
   if (fbp) trackingParams['fbp'] = fbp;
 
-  // 4. Meta Pixel Init & PageView with parameters and cookies
+  // 4. Meta Pixel Init & PageView (Com proteção contra disparo duplicado/GTM)
   if (window.fbq) {
+    if (!window._fbq_pageview_deduped) {
+      window._fbq_pageview_deduped = true;
+      var rawFbq = window.fbq;
+      var pageViewSent = false;
+
+      window.fbq = function() {
+        if (arguments[0] === 'track' && arguments[1] === 'PageView') {
+          if (pageViewSent) return;
+          pageViewSent = true;
+        }
+        return rawFbq.apply(this, arguments);
+      };
+      for (var k in rawFbq) {
+        if (Object.prototype.hasOwnProperty.call(rawFbq, k)) {
+          window.fbq[k] = rawFbq[k];
+        }
+      }
+    }
+
     fbq('init', '427796161815093');
     fbq('track', 'PageView', Object.assign({
       page_location: window.location.href,
