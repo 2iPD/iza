@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" name="viewport"/>
+<title>Atuação Prática na Lei Maria da Penha: Vítima e Acusado | Izabel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "secondary-container": "#434956",
+                "on-tertiary-fixed-variant": "#004a75",
+                "on-error-container": "#ffdad6",
+                "on-secondary": "#2a303d",
+                "surface-glass": "rgba(255, 255, 255, 0.04)",
+                "surface-container-highest": "#333538",
+                "on-secondary-container": "#b3b8c8",
+                "secondary": "#c1c6d6",
+                "on-surface-variant": "#dbc2b0",
+                "secondary-fixed": "#dde2f3",
+                "error-container": "#93000a",
+                "inverse-on-surface": "#2f3034",
+                "on-tertiary": "#003353",
+                "surface-container-lowest": "#0c0e11",
+                "primary-fixed": "#ffdcc3",
+                "surface-tint": "#ffb77d",
+                "primary-fixed-dim": "#ffb77d",
+                "on-error": "#690005",
+                "text-primary": "#F3F4F6",
+                "inverse-primary": "#904d00",
+                "tertiary": "#96ccff",
+                "surface-container-low": "#1a1c1f",
+                "surface-container": "#1e2023",
+                "text-muted": "#9CA3AF",
+                "outline": "#a38c7c",
+                "tertiary-fixed-dim": "#96ccff",
+                "on-secondary-fixed": "#161c27",
+                "on-surface": "#e2e2e6",
+                "surface-bright": "#37393d",
+                "error": "#ffb4ab",
+                "tertiary-container": "#0297e8",
+                "on-primary": "#4d2600",
+                "background": "#111317",
+                "on-primary-fixed": "#2f1500",
+                "inverse-surface": "#e2e2e6",
+                "surface": "#111317",
+                "on-tertiary-fixed": "#001d32",
+                "primary-container": "#d97707",
+                "amber-glow": "#E58A2B",
+                "surface-variant": "#333538",
+                "secondary-fixed-dim": "#c1c6d6",
+                "surface-container-high": "#282a2d",
+                "surface-dim": "#111317",
+                "tertiary-fixed": "#cee5ff",
+                "outline-variant": "#554336",
+                "surface-card": "#181B22",
+                "primary": "#ffb77d",
+                "on-secondary-fixed-variant": "#414754",
+                "on-tertiary-container": "#002c48",
+                "on-background": "#e2e2e6",
+                "on-primary-container": "#432100",
+                "on-primary-fixed-variant": "#6e3900",
+                "border-subtle": "rgba(255, 255, 255, 0.08)"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+        },
+        "spacing": {
+                "section-padding": "120px",
+                "gutter": "24px",
+                "stack-sm": "12px",
+                "stack-lg": "48px",
+                "section-padding-mobile": "64px",
+                "container-max": "1200px",
+                "stack-md": "24px"
+        },
+        "fontFamily": {
+                "body-lg": [
+                        "Plus Jakarta Sans"
+                ],
+                "display-hero": [
+                        "Playfair Display"
+                ],
+                "display-hero-mobile": [
+                        "Playfair Display"
+                ],
+                "body-md": [
+                        "Plus Jakarta Sans"
+                ],
+                "microcopy": [
+                        "Plus Jakarta Sans"
+                ],
+                "headline-section": [
+                        "Playfair Display"
+                ],
+                "label-caps": [
+                        "Plus Jakarta Sans"
+                ],
+                "headline-card": [
+                        "Plus Jakarta Sans"
+                ]
+        },
+        "fontSize": {
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "1.6",
+                                "fontWeight": "400"
+                        }
+                ],
+                "display-hero": [
+                        "48px",
+                        {
+                                "lineHeight": "1.15",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "800"
+                        }
+                ],
+                "display-hero-mobile": [
+                        "32px",
+                        {
+                                "lineHeight": "1.2",
+                                "fontWeight": "800"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "1.6",
+                                "fontWeight": "400"
+                        }
+                ],
+                "microcopy": [
+                        "13px",
+                        {
+                                "lineHeight": "1.4",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-section": [
+                        "36px",
+                        {
+                                "lineHeight": "1.25",
+                                "fontWeight": "700"
+                        }
+                ],
+                "label-caps": [
+                        "14px",
+                        {
+                                "lineHeight": "1.2",
+                                "letterSpacing": "0.1em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-card": [
+                        "22px",
+                        {
+                                "lineHeight": "1.4",
+                                "fontWeight": "600"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #0D0F12;
+            color: #F3F4F6;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(217, 119, 6, 0.4);
+            box-shadow: 0 16px 36px -10px rgba(217, 119, 6, 0.18);
+        }
+        .ambient-shadow {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        .btn-glow {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .btn-glow::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(60deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+            transform: rotate(30deg) translateX(-100%);
+            transition: transform 0.8s ease;
+        }
+        .btn-glow:hover::after {
+            transform: rotate(30deg) translateX(100%);
+        }
+        .text-gradient-gold {
+            background: linear-gradient(135deg, #FFB77D 0%, #D97706 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        @keyframes floatGlow1 {
+            0%, 100% { transform: translate(0px, 0px) scale(1); opacity: 0.3; }
+            50% { transform: translate(70px, -50px) scale(1.2); opacity: 0.55; }
+        }
+        @keyframes floatGlow2 {
+            0%, 100% { transform: translate(0px, 0px) scale(1.1); opacity: 0.25; }
+            50% { transform: translate(-60px, 40px) scale(0.85); opacity: 0.45; }
+        }
+        .ambient-gold-orb-1 {
+            position: absolute;
+            top: -15%;
+            left: -10%;
+            width: 650px;
+            height: 650px;
+            background: radial-gradient(circle, rgba(217, 119, 6, 0.3) 0%, rgba(245, 158, 11, 0.08) 45%, transparent 70%);
+            filter: blur(90px);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: floatGlow1 14s ease-in-out infinite;
+            z-index: 1;
+        }
+        .ambient-gold-orb-2 {
+            position: absolute;
+            bottom: -20%;
+            right: 5%;
+            width: 550px;
+            height: 550px;
+            background: radial-gradient(circle, rgba(255, 183, 125, 0.25) 0%, rgba(217, 119, 6, 0.06) 50%, transparent 70%);
+            filter: blur(100px);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: floatGlow2 18s ease-in-out infinite;
+            z-index: 1;
+        }
+        .bg-grid-pattern {
+            position: absolute;
+            inset: 0;
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(217, 119, 6, 0.09) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(217, 119, 6, 0.09) 1px, transparent 1px);
+            mask-image: radial-gradient(ellipse 85% 85% at 50% 40%, black 45%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse 85% 85% at 50% 40%, black 45%, transparent 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+        .floating-badge-pill {
+            background: rgba(18, 20, 26, 0.78);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .floating-badge-pill:hover {
+            border-color: rgba(217, 119, 6, 0.5);
+            background: rgba(26, 30, 40, 0.9);
+            transform: translateY(-2px);
+        }
+        @keyframes floatPill {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+        .animate-float-1 { animation: floatPill 5s ease-in-out infinite; }
+        .animate-float-2 { animation: floatPill 6s ease-in-out 1.2s infinite; }
+        .animate-float-3 { animation: floatPill 5.5s ease-in-out 2.4s infinite; }
+        .animate-float-4 { animation: floatPill 6.5s ease-in-out 1.8s infinite; }
+        html, body {
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
+        details[open] summary .material-symbols-outlined {
+            transform: rotate(180deg);
+        }
+        .material-symbols-outlined {
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased overflow-x-hidden selection:bg-primary-container selection:text-white">
+
+<!-- 1. HERO SECTION -->
+<section class="relative pt-8 md:pt-16 pb-12 md:pb-section-padding min-h-[85vh] flex items-center bg-background overflow-hidden" id="inicio">
+<div class="bg-grid-pattern"></div>
+<div class="ambient-gold-orb-1"></div>
+<div class="ambient-gold-orb-2"></div>
+<div class="relative z-10 w-full max-w-container-max mx-auto px-4 md:px-gutter grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+<div class="lg:col-span-6 flex flex-col gap-5 md:gap-6" data-aos="fade-right" data-aos-duration="900">
+<span class="font-label-caps text-[11px] sm:text-label-caps text-text-muted tracking-[0.1em] uppercase">Treinamento Avançado para Advogadas Criminalistas · Prática de Bancada</span>
+<h1 class="font-display-hero-mobile text-2xl sm:text-3xl md:text-display-hero text-text-primary leading-tight">
+                A Lei Maria da Penha mudou. Atuar com teses desatualizadas não é um risco: <span class="text-gradient-gold">é erro certo na bancada.</span>
+</h1>
+<p class="font-body-lg text-base sm:text-body-lg text-text-muted max-w-[720px]">
+                Em 8 aulas direto ao ponto, a advogada Izabel mostra como dominar os dois lados do processo: da assistência à vítima à defesa técnica do acusado, aplicando as inovações legislativas e jurisprudenciais de 2026.
+            </p>
+<ul class="flex flex-col gap-3 my-2 md:my-4">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary-container mt-1 shrink-0">check_circle</span>
+<span class="font-body-md text-sm sm:text-body-md text-text-primary">Atualizado com o histórico Tema 1412 do STF e a nova Lei 15.384/2026 (Violência Vicária).</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary-container mt-1 shrink-0">check_circle</span>
+<span class="font-body-md text-sm sm:text-body-md text-text-primary">Estratégia completa: da oitiva em delegacia aos recursos em Tribunais Superiores.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary-container mt-1 shrink-0">check_circle</span>
+<span class="font-body-md text-sm sm:text-body-md text-text-primary">Modelos comentados cláusula por cláusula de peças reais do dia a dia criminal.</span>
+</li>
+</ul>
+<div class="pt-2 md:pt-4 flex flex-col items-start w-full">
+<a class="inline-flex items-center justify-center bg-primary-container hover:bg-amber-glow text-white font-label-caps text-sm sm:text-label-caps px-6 sm:px-8 py-4 rounded-full ambient-shadow btn-glow transition-all duration-300 transform hover:-translate-y-1 w-full sm:w-auto text-center shadow-lg shadow-primary-container/20" href="#oferta">
+                    Quero dominar a prática na Lei Maria da Penha →
+                </a>
+<p class="font-microcopy text-xs sm:text-microcopy text-text-muted mt-3 sm:mt-4">Acesso imediato | Modelos em formato editável | Garantia incondicional de 7 dias</p>
+</div>
+</div>
+<div class="lg:col-span-6 w-full max-w-[340px] sm:max-w-md lg:max-w-none mx-auto relative mt-4 lg:mt-0" data-aos="fade-left" data-aos-duration="900" data-aos-delay="200">
+<div class="relative w-full aspect-[4/5] rounded-2xl overflow-hidden border border-border-subtle ambient-shadow">
+<div class="bg-cover bg-top w-full h-full" style="background-image: url('HERO-IMAGE.webp'); filter: grayscale(20%) contrast(105%);"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent"></div>
+
+<!-- Balões Flutuantes Translúcidos -->
+<div class="absolute bottom-4 sm:bottom-6 right-3 sm:right-4 flex flex-col items-end gap-2.5 z-20 pointer-events-auto max-w-[92%] sm:max-w-[85%]">
+<div class="floating-badge-pill animate-float-1 px-3.5 sm:px-4 py-2 rounded-full flex items-center gap-2 text-xs sm:text-sm text-text-primary">
+<span class="text-primary-container font-bold">✓</span>
+<span>Atuação nos dois lados: Vítima e Acusado</span>
+</div>
+<div class="floating-badge-pill animate-float-2 px-3.5 sm:px-4 py-2 rounded-full flex items-center gap-2 text-xs sm:text-sm text-text-primary">
+<span class="text-primary-container font-bold">✓</span>
+<span>3 modelos reais de peças comentadas</span>
+</div>
+<div class="floating-badge-pill animate-float-3 px-3.5 sm:px-4 py-2 rounded-full flex items-center gap-2 text-xs sm:text-sm text-text-primary">
+<span class="text-primary-container font-bold">✓</span>
+<span>Da delegacia aos Tribunais Superiores</span>
+</div>
+<div class="floating-badge-pill animate-float-4 px-3.5 sm:px-4 py-2 rounded-full flex items-center gap-2 text-xs sm:text-sm text-text-primary">
+<span class="text-primary-container font-bold">✓</span>
+<span>Acesso imediato + 7 dias de garantia</span>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</section>
+<!-- 2. O CENÁRIO ATUAL (A Ruptura Legislativa de 2026) -->
+<section class="py-12 md:py-section-padding bg-surface-container-lowest relative" id="o-curso">
+<div class="max-w-container-max mx-auto px-4 md:px-gutter">
+<div class="max-w-[800px] mx-auto text-center mb-10 md:mb-16">
+<h2 class="font-headline-section text-2xl sm:text-3xl md:text-headline-section text-text-primary mb-6">O direito penal de violência doméstica <span class="text-primary-container">não cabe mais nos manuais do ano passado.</span></h2>
+<div class="text-left bg-surface-card p-5 sm:p-8 rounded-xl border border-border-subtle mb-8">
+<p class="font-body-lg text-base sm:text-body-lg text-text-muted mb-4 italic">"A rotina do fórum não espera a doutrina imprimir novos livros."</p>
+<ul class="space-y-4 mb-6">
+<li class="font-body-md text-text-primary pl-4 border-l-2 border-primary-container">O fato ocorreu fora de casa: a medida protetiva ainda se sustenta?</li>
+<li class="font-body-md text-text-primary pl-4 border-l-2 border-primary-container">A conduta configura alienação parental grave ou a nova tipificação de violência vicária?</li>
+</ul>
+<p class="font-body-md text-text-muted">Cinco minutos de audiência bastam para expor quem está citando súmula superada ou ignorando o prazo decadencial ampliado para 12 meses.</p>
+</div>
+<p class="font-headline-card text-headline-card text-text-primary text-center font-semibold">
+                Não é sobre decorar artigos. É sobre saber exatamente o que alegar quando o juiz abre prazo para a sua manifestação.
+            </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="glass-card p-6 rounded-xl flex flex-col gap-4 border border-border-subtle hover:border-primary-container/50 transition-colors" data-aos="fade-up" data-aos-delay="100">
+<span class="inline-block px-3 py-1 bg-primary-container/10 text-primary-container border border-primary-container/20 rounded text-[12px] font-bold w-fit mb-2">2026</span>
+<h3 class="font-headline-card text-headline-card text-text-primary">Tema 1412 / STF</h3>
+<p class="font-body-md text-[15px] text-text-muted">Extensão das medidas protetivas a contextos de violência de gênero fora do âmbito doméstico estrito.</p>
+</div>
+<div class="glass-card p-6 rounded-xl flex flex-col gap-4 border border-border-subtle hover:border-primary-container/50 transition-colors" data-aos="fade-up" data-aos-delay="200">
+<span class="inline-block px-3 py-1 bg-primary-container/10 text-primary-container border border-primary-container/20 rounded text-[12px] font-bold w-fit mb-2">2026</span>
+<h3 class="font-headline-card text-headline-card text-text-primary">Lei 15.384/2026</h3>
+<p class="font-body-md text-[15px] text-text-muted">A nova figura jurídica da <span class="text-primary-container font-semibold">Violência Vicária</span> no Art. 7º.</p>
+</div>
+<div class="glass-card p-6 rounded-xl flex flex-col gap-4 border border-border-subtle hover:border-primary-container/50 transition-colors" data-aos="fade-up" data-aos-delay="300">
+<h3 class="font-headline-card text-headline-card text-text-primary">Prazos e Poderes</h3>
+<p class="font-body-md text-[15px] text-text-muted">Ampliação da decadência para 12 meses e exigências formais de procuração.</p>
+</div>
+<div class="glass-card p-6 rounded-xl flex flex-col gap-4 border border-border-subtle hover:border-primary-container/50 transition-colors" data-aos="fade-up" data-aos-delay="400">
+<h3 class="font-headline-card text-headline-card text-text-primary">Lei do Feminicídio &amp; Lei 15.438</h3>
+<p class="font-body-md text-[15px] text-text-muted">Alterações de regime, competência com menores e prisão preventiva.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. O GRANDE DIFERENCIAL -->
+<section class="py-12 md:py-section-padding bg-background relative" id="diferencial">
+<div class="max-w-container-max mx-auto px-4 md:px-gutter">
+<div class="text-center mb-10 md:mb-16">
+<h2 class="font-headline-section text-2xl sm:text-3xl md:text-headline-section text-text-primary mb-4">Por que quem só estuda um lado do processo <span class="text-primary-container">perde o caso?</span></h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-8 sm:mb-12">
+<div class="glass-card p-6 sm:p-10 rounded-2xl border border-border-subtle" data-aos="fade-right">
+<div class="w-12 h-12 rounded-full bg-primary-container/10 flex items-center justify-center text-primary-container mb-6">
+<span class="material-symbols-outlined">shield_person</span>
+</div>
+<h3 class="font-headline-card text-xl sm:text-[24px] text-text-primary mb-4 font-display-hero">Assistência à Vítima</h3>
+<p class="font-body-md text-text-muted text-base sm:text-[17px]">
+                    Como antecipar a tese de resposta à acusação ou o pedido de revogação de protetiva se você não domina as brechas da defesa?
+                </p>
+</div>
+<div class="glass-card p-6 sm:p-10 rounded-2xl border border-border-subtle" data-aos="fade-left">
+<div class="w-12 h-12 rounded-full bg-primary-container/10 flex items-center justify-center text-primary-container mb-6">
+<span class="material-symbols-outlined">gavel</span>
+</div>
+<h3 class="font-headline-card text-xl sm:text-[24px] text-text-primary mb-4 font-display-hero">Defesa do Acusado</h3>
+<p class="font-body-md text-text-muted text-base sm:text-[17px]">
+                    Como anular falhas no FONAR ou desarmar uma imputação se desconhece os fluxos da acusação e a jurisprudência protetiva do STJ?
+                </p>
+</div>
+</div>
+<div class="text-center max-w-[800px] mx-auto border-t border-b border-border-subtle py-8">
+<p class="font-headline-card text-[22px] text-primary-container">
+                "Dominar a mesa inteira é o que transforma uma manifestação burocrática em vantagem tática real."
+            </p>
+</div>
+</div>
+</section>
+<!-- 4. MÓDULOS -->
+<section class="py-section-padding bg-surface-container-lowest" id="modulos">
+<div class="max-w-container-max mx-auto px-4 md:px-gutter">
+<div class="text-center mb-16">
+<h2 class="font-headline-section text-headline-section text-text-primary mb-4">Grade do Treinamento</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="glass-card p-8 rounded-xl border border-border-subtle hover:border-primary-container/30 transition-colors">
+<h3 class="font-headline-card text-[20px] text-text-primary mb-4">Módulo 1: Fundamentos &amp; O Novo Alcance (2026)</h3>
+<p class="font-body-md text-[15px] text-text-muted">
+                    Art. 5º, mulheres trans, Tema 1412/STF, violência vicária e competência.
+                </p>
+</div>
+<div class="glass-card p-8 rounded-xl border border-border-subtle hover:border-primary-container/30 transition-colors">
+<h3 class="font-headline-card text-[20px] text-text-primary mb-4">Módulo 2: Atendimento à Vítima na Prática</h3>
+<p class="font-body-md text-[15px] text-text-muted">
+                    Entrevista técnica, análise do FONAR, delegacia, decadência de 12 meses e procuração com poderes especiais.
+                </p>
+</div>
+<div class="glass-card p-8 rounded-xl border border-border-subtle hover:border-primary-container/30 transition-colors">
+<h3 class="font-headline-card text-[20px] text-text-primary mb-4">Módulo 3: Atendimento e Defesa do Acusado</h3>
+<p class="font-body-md text-[15px] text-text-muted">
+                    Aconselhamento preventivo, monitoramento eletrônico, contato iniciado pela vítima e audiência de custódia.
+                </p>
+</div>
+<div class="glass-card p-8 rounded-xl border border-border-subtle hover:border-primary-container/30 transition-colors">
+<h3 class="font-headline-card text-[20px] text-text-primary mb-4">Módulo 4: Aspectos Processuais Avançados</h3>
+<p class="font-body-md text-[15px] text-text-muted">
+                    Ação subsidiária da pública, conflito de competência, Lei do Feminicídio e recursos de preventiva.
+                </p>
+</div>
+</div>
+</div>
+</section>
+<!-- 5. MODELOS REAIS COMENTADOS -->
+<section class="py-section-padding bg-background border-t border-border-subtle">
+<div class="max-w-container-max mx-auto px-4 md:px-gutter">
+<div class="text-center mb-12">
+<h2 class="font-headline-section text-headline-section text-text-primary mb-4">Peças Reais Comentadas</h2>
+<p class="font-body-md text-text-muted">Modelos comentados cláusula por cláusula.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="glass-card p-8 rounded-xl border border-primary-container/30 flex flex-col items-center text-center gap-3 relative overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+<div class="w-14 h-14 rounded-2xl bg-primary-container/10 border border-primary-container/30 flex items-center justify-center mb-2">
+<span class="material-symbols-outlined text-3xl text-primary-container">article</span>
+</div>
+<h4 class="font-headline-card text-[18px] text-text-primary">Peça 1: Queixa-Crime Completa</h4>
+<p class="font-body-md text-[14px] text-text-muted">(Caso Real)</p>
+</div>
+<div class="glass-card p-8 rounded-xl border border-primary-container/30 flex flex-col items-center text-center gap-3 relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+<div class="w-14 h-14 rounded-2xl bg-primary-container/10 border border-primary-container/30 flex items-center justify-center mb-2">
+<span class="material-symbols-outlined text-3xl text-primary-container">gavel</span>
+</div>
+<h4 class="font-headline-card text-[18px] text-text-primary">Peça 2: Resposta à Acusação</h4>
+<p class="font-body-md text-[14px] text-text-muted">com Legítima Defesa</p>
+</div>
+<div class="glass-card p-8 rounded-xl border border-primary-container/30 flex flex-col items-center text-center gap-3 relative overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+<div class="w-14 h-14 rounded-2xl bg-primary-container/10 border border-primary-container/30 flex items-center justify-center mb-2">
+<span class="material-symbols-outlined text-3xl text-primary-container">shield_with_heart</span>
+</div>
+<h4 class="font-headline-card text-[18px] text-text-primary">Peça 3: Pedido de Revogação</h4>
+<p class="font-body-md text-[14px] text-text-muted">de Medida Protetiva</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 6. SOBRE A INSTRUTORA -->
+<section class="py-12 md:py-section-padding bg-surface-container-lowest border-y border-border-subtle" id="mentora">
+<div class="max-w-container-max mx-auto px-4 md:px-gutter flex flex-col md:flex-row items-center gap-8 md:gap-16">
+<div class="w-full md:w-1/3 flex justify-center">
+<div class="w-60 sm:w-64 aspect-[3/4] rounded-xl flex items-center justify-center border-2 border-primary-container overflow-hidden shadow-xl">
+<img src="curriculo.webp" alt="Izabel" class="w-full h-full object-cover object-top">
+</div>
+</div>
+<div class="w-full md:w-2/3 text-center md:text-left">
+<h2 class="font-headline-section text-2xl sm:text-3xl md:text-headline-section text-text-primary mb-4 md:mb-6">Quem é Izabel</h2>
+<p class="font-body-lg text-base sm:text-body-lg text-text-muted mb-4">
+                Advogada criminalista com atuação prática constante no contencioso de violência doméstica e familiar.
+            </p>
+<p class="font-body-lg text-base sm:text-body-lg text-text-muted mb-4">
+                Foco absoluto na prática forense real, sem juridiquês inacessível, sem abstração de gabinete.
+            </p>
+<p class="font-body-lg text-base sm:text-body-lg text-text-muted">
+                Didática voltada para a tomada de decisão rápida e segura na advocacia diária.
+            </p>
+</div>
+</div>
+</section>
+<!-- 7. OFERTA & PREÇO -->
+<section class="py-12 md:py-section-padding bg-background" id="oferta">
+<div class="max-w-[700px] mx-auto px-4 md:px-gutter">
+<div class="glass-card rounded-2xl overflow-hidden border border-primary-container/40 relative shadow-2xl shadow-primary-container/10">
+<div class="absolute top-0 left-0 w-full bg-primary-container text-center py-2 px-3">
+<span class="font-label-caps text-xs sm:text-label-caps text-white font-bold tracking-widest uppercase">🔥 Condição Exclusiva de Lançamento · Lote Zero</span>
+</div>
+<div class="p-6 sm:p-10 pt-14 sm:pt-16">
+<ul class="space-y-4 mb-8 sm:mb-10 border-b border-border-subtle pb-6 sm:pb-8">
+<li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary-container shrink-0">check_circle</span> <span class="font-body-md text-sm sm:text-body-md text-text-primary">8 aulas completas</span></li>
+<li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary-container shrink-0">check_circle</span> <span class="font-body-md text-sm sm:text-body-md text-text-primary">3 peças reais comentadas</span></li>
+<li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary-container shrink-0">check_circle</span> <span class="font-body-md text-text-primary text-sm sm:text-body-md">Atualizações Legislativas de 2026</span></li>
+<li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary-container shrink-0">check_circle</span> <span class="font-body-md text-sm sm:text-body-md text-text-primary">Materiais em formato editável</span></li>
+</ul>
+<div class="text-center mb-8 sm:mb-10">
+<p class="text-text-muted line-through mb-1 text-base sm:text-lg">De: R$ 997,00</p>
+<p class="text-text-muted mb-2 text-xs sm:text-sm uppercase tracking-wider">Por apenas</p>
+<p class="font-display-hero text-3xl sm:text-[48px] text-white font-bold mb-2">12x de R$ 49,60</p>
+<p class="text-text-muted mt-2 text-sm sm:text-base">ou R$ 497,00 à vista.</p>
+<p class="text-primary-container font-semibold mt-4 bg-primary-container/10 inline-block px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm">Economia de mais de 55% para alunas do Lote Zero.</p>
+</div>
+<a class="flex items-center justify-center w-full bg-primary-container hover:bg-amber-glow text-white font-label-caps text-label-caps px-8 py-5 rounded-full shadow-lg shadow-primary-container/20 btn-glow transition-all duration-300 transform hover:-translate-y-1 text-center text-[16px]" href="#">
+                    Garantir minha vaga no Lote Zero →
+                </a>
+<div class="mt-6 flex flex-wrap justify-center gap-4 text-text-muted text-[12px] font-microcopy text-center">
+<span>Garantia Incondicional de 7 Dias</span>
+<span>•</span>
+<span>Pagamento Criptografado</span>
+<span>•</span>
+<span>Acesso Imediato</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 8. FAQ -->
+<section class="py-12 md:py-section-padding bg-surface-container-lowest" id="duvidas">
+<div class="max-w-[800px] mx-auto px-4 md:px-gutter">
+<h2 class="font-headline-section text-2xl sm:text-3xl md:text-headline-section text-text-primary mb-8 md:mb-10 text-center">Perguntas Frequentes</h2>
+<div class="space-y-4">
+<details class="group glass-card rounded-lg border border-border-subtle cursor-pointer">
+<summary class="flex justify-between items-center font-body-lg p-6 text-text-primary font-medium">
+<span>Já fiz cursos anteriores sobre Maria da Penha. Por que este é necessário?</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180 text-primary-container">expand_more</span>
+</summary>
+<div class="p-6 pt-0 font-body-md text-text-muted">
+                    Porque a legislação e a jurisprudência mudaram radicalmente para 2026 (Tema 1412 STF, Lei 15.384). O que funcionava ano passado pode ser um erro fatal hoje.
+                </div>
+</details>
+<details class="group glass-card rounded-lg border border-border-subtle cursor-pointer">
+<summary class="flex justify-between items-center font-body-lg p-6 text-text-primary font-medium">
+<span>Só atuo para vítimas (ou só para acusados). Vou aproveitar o curso todo?</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180 text-primary-container">expand_more</span>
+</summary>
+<div class="p-6 pt-0 font-body-md text-text-muted">
+                    Sim. Dominar a mesa inteira (visão 360) é o que permite antecipar as teses da outra parte. É uma vantagem tática indispensável.
+                </div>
+</details>
+<details class="group glass-card rounded-lg border border-border-subtle cursor-pointer">
+<summary class="flex justify-between items-center font-body-lg p-6 text-text-primary font-medium">
+<span>O conteúdo serve para advogadas recém-formadas ou já atuantes?</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180 text-primary-container">expand_more</span>
+</summary>
+<div class="p-6 pt-0 font-body-md text-text-muted">
+                    Serve para ambas. É um treinamento de trincheira, focado na prática real de audiências, delegacias e despachos, sem juridiquês inútil.
+                </div>
+</details>
+<details class="group glass-card rounded-lg border border-border-subtle cursor-pointer">
+<summary class="flex justify-between items-center font-body-lg p-6 text-text-primary font-medium">
+<span>Terei acesso aos modelos em arquivo editável?</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180 text-primary-container">expand_more</span>
+</summary>
+<div class="p-6 pt-0 font-body-md text-text-muted">
+                    Sim. Todas as peças comentadas acompanham a versão editável (Word) para você adaptar aos seus casos imediatamente.
+                </div>
+</details>
+<details class="group glass-card rounded-lg border border-border-subtle cursor-pointer">
+<summary class="flex justify-between items-center font-body-lg p-6 text-text-primary font-medium">
+<span>Como funciona a garantia de 7 dias?</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180 text-primary-container">expand_more</span>
+</summary>
+<div class="p-6 pt-0 font-body-md text-text-muted">
+                    Você tem 7 dias corridos a partir da compra para avaliar o material. Se não atender às suas expectativas, devolvemos 100% do valor, sem burocracia.
+                </div>
+</details>
+</div>
+</div>
+</section>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    AOS.init({
+      duration: 800,
+      once: true,
+      easing: 'ease-out-cubic',
+      offset: 50
+    });
+  });
+</script>
+</body></html>
