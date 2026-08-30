@@ -788,33 +788,88 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     _fbp: fbp
   }, trackingParams));
 
-  // 5. Dynamic Checkout Button Handling (UTM Propagation & InitiateCheckout)
+  // 5. Dynamic Checkout Button Handling (SCK & SRC Conversion & InitiateCheckout)
+  function buildCheckoutUrl(originalHref) {
+    try {
+      var targetUrl = new URL(originalHref, window.location.href);
+
+      // 1. Determine 'src' (from URL/localStorage or pathname slug, default to 'iza')
+      var srcVal = trackingParams['src'];
+      if (!srcVal) {
+        var cleanPath = window.location.pathname.replace(/^\/|\/$/g, '');
+        srcVal = cleanPath || 'iza';
+      }
+      if (srcVal && !targetUrl.searchParams.has('src')) {
+        targetUrl.searchParams.set('src', srcVal);
+      }
+
+      // 2. Determine 'sck' (utm_source|utm_medium|utm_campaign|utm_content|utm_term)
+      var sckVal = trackingParams['sck'];
+      if (!sckVal) {
+        var utmParts = [
+          trackingParams['utm_source'] || '',
+          trackingParams['utm_medium'] || '',
+          trackingParams['utm_campaign'] || '',
+          trackingParams['utm_content'] || '',
+          trackingParams['utm_term'] || ''
+        ];
+        if (utmParts.some(function(p) { return p !== ''; })) {
+          sckVal = utmParts.join('|');
+        }
+      }
+      if (sckVal && !targetUrl.searchParams.has('sck')) {
+        targetUrl.searchParams.set('sck', sckVal);
+      }
+
+      // 3. Append all individual UTMs and remaining parameters
+      Object.keys(trackingParams).forEach(function(paramKey) {
+        if (trackingParams[paramKey] && !targetUrl.searchParams.has(paramKey)) {
+          targetUrl.searchParams.set(paramKey, trackingParams[paramKey]);
+        }
+      });
+
+      return targetUrl.toString();
+    } catch(e) {
+      return originalHref;
+    }
+  }
+
   function initCheckoutTracking() {
-    var checkoutButtons = document.querySelectorAll('a[href*="checkout"], a[href*="pay."], a[href*="hotmart"], a[href*="kiwify"], a[href*="eduzz"], a[href="#oferta"], a.btn-glow');
+    var checkoutButtons = document.querySelectorAll('a[href*="checkout"], a[href*="pay."], a[href*="hotmart"], a[href*="kiwify"], a[href*="eduzz"], a.btn-glow');
 
     checkoutButtons.forEach(function(btn) {
       var href = btn.getAttribute('href');
       if (!href) return;
 
-      if (href.indexOf('http') === 0 || href.indexOf('pay.') !== -1 || href.indexOf('checkout') !== -1 || href.indexOf('hotmart') !== -1 || href.indexOf('kiwify') !== -1 || href.indexOf('eduzz') !== -1) {
-        try {
-          var targetUrl = new URL(href, window.location.href);
-          Object.keys(trackingParams).forEach(function(paramKey) {
-            if (trackingParams[paramKey] && !targetUrl.searchParams.has(paramKey)) {
-              targetUrl.searchParams.set(paramKey, trackingParams[paramKey]);
-            }
-          });
-          btn.setAttribute('href', targetUrl.toString());
-        } catch(e) {}
+      if (href.indexOf('http') === 0 || href.indexOf('pay.') !== -1 || href.indexOf('checkout') !== -1 || href.indexOf('hotmart') !== -1) {
+        btn.setAttribute('href', buildCheckoutUrl(href));
       }
 
       btn.addEventListener('click', function() {
+        if (href.indexOf('http') === 0 || href.indexOf('pay.') !== -1 || href.indexOf('checkout') !== -1 || href.indexOf('hotmart') !== -1) {
+          btn.setAttribute('href', buildCheckoutUrl(href));
+        }
+
+        var finalParams = Object.assign({}, trackingParams);
+        var srcVal = trackingParams['src'] || window.location.pathname.replace(/^\/|\/$/g, '') || 'iza';
+        var utmParts = [
+          trackingParams['utm_source'] || '',
+          trackingParams['utm_medium'] || '',
+          trackingParams['utm_campaign'] || '',
+          trackingParams['utm_content'] || '',
+          trackingParams['utm_term'] || ''
+        ];
+        var sckVal = trackingParams['sck'] || (utmParts.some(function(p){ return p!==''; }) ? utmParts.join('|') : '');
+        
+        finalParams['src'] = srcVal;
+        if (sckVal) finalParams['sck'] = sckVal;
+
         if (window.fbq) {
           fbq('track', 'InitiateCheckout', Object.assign({
             content_name: 'Curso Atuação Prática na Lei Maria da Penha',
             value: 197.00,
             currency: 'BRL'
-          }, trackingParams));
+          }, finalParams));
         }
 
         window.dataLayer.push(Object.assign({
@@ -827,7 +882,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               price: 197.00
             }]
           }
-        }, trackingParams));
+        }, finalParams));
       });
     });
   }
