@@ -1,0 +1,7 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/treinamento-maria-da-penha", "destination": "/index.html" },
+    { "source": "/treinamento-maria-da-penha/", "destination": "/index.html" }
+  ]
+}
