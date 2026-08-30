@@ -1,6 +1,26 @@
 <!DOCTYPE html>
 
 <html lang="pt-BR"><head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NVVF8Z8M');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+</script>
+<!-- End Meta Pixel Code -->
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" name="viewport"/>
 <title>Atuação Prática na Lei Maria da Penha: Vítima e Acusado | Izabel</title>
@@ -301,6 +321,10 @@
     </style>
 </head>
 <body class="bg-background text-on-surface font-body-md antialiased overflow-x-hidden selection:bg-primary-container selection:text-white">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NVVF8Z8M"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 <!-- 1. HERO SECTION -->
 <section class="relative pt-8 md:pt-16 pb-12 md:pb-section-padding min-h-[85vh] flex items-center bg-background overflow-hidden" id="inicio">
@@ -655,5 +679,144 @@
       offset: 50
     });
   });
+</script>
+
+<!-- Meta & GTM Tracking Integration -->
+<script>
+(function() {
+  function setCookie(name, value, days) {
+    var expires = "";
+    if (days) {
+      var date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      expires = "; expires=" + date.toUTCString();
+    }
+    var host = window.location.hostname;
+    var domain = host.indexOf('.') !== -1 ? "." + host.replace(/^www\./, '') : host;
+    document.cookie = name + "=" + (value || "") + expires + "; path=/; domain=" + domain;
+    if (!getCookie(name)) {
+      document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+  }
+
+  function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  }
+
+  var searchParams = new URLSearchParams(window.location.search);
+
+  // 1. Manage _fbp (Facebook Browser ID Cookie)
+  var fbp = getCookie('_fbp');
+  if (!fbp) {
+    fbp = 'fb.1.' + Date.now() + '.' + Math.floor(Math.random() * 10000000000);
+    setCookie('_fbp', fbp, 90);
+  }
+
+  // 2. Manage _fbc (Facebook Click ID Cookie)
+  var fbclid = searchParams.get('fbclid');
+  var fbc = getCookie('_fbc');
+  if (fbclid) {
+    fbc = 'fb.1.' + Date.now() + '.' + fbclid;
+    setCookie('_fbc', fbc, 90);
+  }
+
+  // 3. Extract & Persist UTMs and key parameters
+  var trackedKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'src', 'sck', 'fbclid', 'gclid', 'gad_source'];
+  var trackingParams = {};
+
+  trackedKeys.forEach(function(key) {
+    var val = searchParams.get(key);
+    if (val) {
+      trackingParams[key] = val;
+      try { localStorage.setItem('iza_' + key, val); } catch(e) {}
+    } else {
+      try {
+        var storedVal = localStorage.getItem('iza_' + key);
+        if (storedVal) trackingParams[key] = storedVal;
+      } catch(e) {}
+    }
+  });
+
+  if (fbc) trackingParams['fbc'] = fbc;
+  if (fbp) trackingParams['fbp'] = fbp;
+
+  // 4. Meta Pixel Init & PageView with parameters and cookies
+  if (window.fbq) {
+    fbq('init', '427796161815093');
+    fbq('track', 'PageView', Object.assign({
+      page_location: window.location.href,
+      page_path: window.location.pathname,
+      page_title: document.title
+    }, trackingParams));
+  }
+
+  // GTM DataLayer Push
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push(Object.assign({
+    event: 'page_view_enhanced',
+    page_location: window.location.href,
+    page_path: window.location.pathname,
+    page_title: document.title,
+    _fbc: fbc,
+    _fbp: fbp
+  }, trackingParams));
+
+  // 5. Dynamic Checkout Button Handling (UTM Propagation & InitiateCheckout)
+  function initCheckoutTracking() {
+    var checkoutButtons = document.querySelectorAll('a[href*="checkout"], a[href*="pay."], a[href*="hotmart"], a[href*="kiwify"], a[href*="eduzz"], a[href="#oferta"], a.btn-glow');
+
+    checkoutButtons.forEach(function(btn) {
+      var href = btn.getAttribute('href');
+      if (!href) return;
+
+      if (href.indexOf('http') === 0 || href.indexOf('pay.') !== -1 || href.indexOf('checkout') !== -1 || href.indexOf('hotmart') !== -1 || href.indexOf('kiwify') !== -1 || href.indexOf('eduzz') !== -1) {
+        try {
+          var targetUrl = new URL(href, window.location.href);
+          Object.keys(trackingParams).forEach(function(paramKey) {
+            if (trackingParams[paramKey] && !targetUrl.searchParams.has(paramKey)) {
+              targetUrl.searchParams.set(paramKey, trackingParams[paramKey]);
+            }
+          });
+          btn.setAttribute('href', targetUrl.toString());
+        } catch(e) {}
+      }
+
+      btn.addEventListener('click', function() {
+        if (window.fbq) {
+          fbq('track', 'InitiateCheckout', Object.assign({
+            content_name: 'Curso Atuação Prática na Lei Maria da Penha',
+            value: 197.00,
+            currency: 'BRL'
+          }, trackingParams));
+        }
+
+        window.dataLayer.push(Object.assign({
+          event: 'initiate_checkout',
+          ecommerce: {
+            currency: 'BRL',
+            value: 197.00,
+            items: [{
+              item_name: 'Curso Atuação Prática na Lei Maria da Penha',
+              price: 197.00
+            }]
+          }
+        }, trackingParams));
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCheckoutTracking);
+  } else {
+    initCheckoutTracking();
+  }
+})();
 </script>
 </body></html>
