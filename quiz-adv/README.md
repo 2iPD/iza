@@ -1,6 +1,14 @@
 # QUIZ ADV na Hostinger
 
-Criador de quizzes editáveis com etapas de pergunta, carregamento simulado e resultados diferentes por resposta. O painel fica em **/quiz-adv/**. Os visitantes usam **/quiz-1**, **/quiz-2** etc., sem login. A página inicial e o treinamento existentes neste repositório foram preservados.
+Criador de quizzes editáveis com perguntas de múltipla escolha, perguntas de texto corrido, carregamento simulado e resultados diferentes por resposta. O painel fica em **/quiz-adv/**. Os visitantes usam **/quiz-1**, **/quiz-2** etc., sem login. A página inicial e o treinamento existentes neste repositório foram preservados.
+
+## Perguntas de texto e contatos por quiz
+
+Em **Conteúdo → Adicionar etapa → Texto corrido**, escreva a pergunta, uma orientação opcional e escolha a etapa de destino após a resposta. A resposta é obrigatória, admite quebras de linha e tem limite de 2.000 caracteres validado no servidor. Perguntas de texto não acrescentam pontos. As demais perguntas continuam com a pontuação configurada e podem direcionar para perguntas de texto.
+
+O botão **Contatos** abre a lista do quiz selecionado no editor. O título identifica o quiz, e o seletor **Mostrar contatos do quiz** permite trocar de lista. Cada quiz guarda seus próprios contatos pelo UUID de origem, inclusive quando vários quizzes pertencem ao mesmo administrador. Um novo quiz começa vazio. Em **Ver respostas**, consulte as respostas de múltipla escolha e os textos de cada contato. As listas mostram até os mil contatos mais recentes do quiz, com o total correspondente.
+
+Esta atualização não altera tabelas, contatos existentes nem configurações privadas. Atualize os arquivos da aplicação na Hostinger pela implantação do GitHub e recarregue o painel. Não é necessário executar a instalação novamente. Para incluir a nova pergunta em um quiz já público, salve e clique em **Atualizar página**.
 
 ## Ativar uma vez na Hostinger
 
@@ -38,5 +46,7 @@ Mantenha PHP e a hospedagem atualizados, faça backup do banco e do arquivo priv
 ## Testes locais
 
 `php -d extension=pdo_sqlite quiz-adv/tests/run.php`
+
+`node quiz-adv/tests/ui.cjs`
 
 Os testes usam SQLite em memória e um transporte GitHub simulado. Verificam propriedade, sessões, pontuação, ramificações, tempo de carregamento, publicação, falhas e preservação de arquivos. Não conectam à Hostinger nem substituem a validação final com seu MySQL e domínio. Também foram verificados a sintaxe PHP e os arquivos JavaScript. Nenhuma credencial real foi incluída.
