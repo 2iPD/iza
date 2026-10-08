@@ -1,0 +1,8 @@
+# Configuration and credentials must never be committed.
+quiz-adv/private/config.local.php
+quiz-adv/private/*.sqlite*
+quiz-adv/private/*.log
+.env
+.env.*
+!.env.example
+node_modules/

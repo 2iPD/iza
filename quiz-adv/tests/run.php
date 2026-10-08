@@ -1,0 +1,52 @@
+<?php
+declare(strict_types=1);
+namespace QuizAdv;
+if(PHP_SAPI!=='cli'){http_response_code(404);exit;}
+require __DIR__.'/../private/bootstrap.php';require __DIR__.'/../private/Store.php';require __DIR__.'/../private/GitHub.php';require __DIR__.'/../private/Service.php';
+$passed=0;
+function check(bool $ok,string $label):void {global $passed;if(!$ok)throw new \RuntimeException($label);$passed++;echo "OK $label\n";}
+function rejects(callable $f,int $status,string $label):void {try{$f();}catch(ApiError $e){check($e->status===$status,$label);return;}throw new \RuntimeException('Não rejeitou: '.$label);}
+$pdo=new \PDO('sqlite::memory:');$db=new Store($pdo);
+$sql=file_get_contents(__DIR__.'/../private/schema.sql');$sql=preg_replace('/, INDEX\([^)]*\)/','',$sql);$sql=str_replace(' ENGINE=InnoDB','',$sql);$pdo->exec($sql);$pdo->exec('PRAGMA foreign_keys = ON');
+$owner=Domain::id();$other=Domain::id();foreach([$owner,$other] as $id)$db->query('INSERT INTO qa_users VALUES (?,?,?,?)',[$id,$id.'@example.com',password_hash('test-password-long',PASSWORD_DEFAULT),Domain::now()]);$db->query('INSERT INTO qa_counters VALUES (?,?,?)',[Domain::id(),'public_quiz',1]);
+$settings=['APP_ORIGIN'=>'https://example.com','GITHUB_OWNER'=>'2iPD','GITHUB_REPO'=>'iza','GITHUB_BRANCH'=>'main','GITHUB_TOKEN'=>'test-transport-token','WEBHOOK_HOSTS'=>['hooks.zapier.com']];$files=[];$fail=false;$puts=0;
+$transport=function($method,$path,$body)use(&$files,&$fail,&$puts){if($fail)return ['status'=>503,'data'=>[]];$key=explode('?',$path)[0];if($method==='GET')return isset($files[$key])?['status'=>200,'data'=>['type'=>'file','sha'=>str_repeat('a',40),'content'=>base64_encode($files[$key])]]:['status'=>404,'data'=>[]];$puts++;$files[$key]=base64_decode($body['content']);return ['status'=>201,'data'=>['commit'=>['sha'=>str_repeat('b',40)]]];};
+$publisher=new GitHubPublisher($settings,$transport);$service=new Service($db,$publisher,$settings);
+$stage=Domain::id();$loading=Domain::id();$result=Domain::id();$a=Domain::id();$b=Domain::id();$visitor=hash('sha256','visitor-one');
+$config=['name'=>'Teste','brand'=>'ADV','intro'=>'Começar','description'=>'Descrição','button'=>'Começar','color'=>'#6c46ed','leadTitle'=>'Contato','leadDescription'=>'Seu contato','consent'=>'Aceito contato comercial.','privacy'=>'','resultTitle'=>'Padrão','resultDescription'=>'Resultado padrão','offerLabel'=>'Ver oferta','offerUrl'=>'https://example.com/oferta','webhook'=>'','questions'=>[['id'=>$stage,'type'=>'question','title'=>'Escolha','options'=>['A','B'],'optionIds'=>[$a,$b],'points'=>[25,70],'routes'=>[$loading,$result]],['id'=>$loading,'type'=>'loading','title'=>'Carregando','description'=>'Analisando','duration'=>2,'next'=>$result],['id'=>$result,'type'=>'result','title'=>'Personalizado','description'=>'Sua oferta','offerLabel'=>'Oferta','offerUrl'=>'https://example.com/oferta']]];
+rejects(fn()=>$service->handle('/quizzes','POST',['config'=>$config],null,null),401,'editor exige autenticação');
+$q=$service->handle('/quizzes','POST',['config'=>$config],$owner,null);$id=$q['id'];check(Domain::uuid($id)===$id,'UUID na identidade persistida');
+rejects(fn()=>$service->handle('/quizzes/'.$id,'GET',[],$other,null),404,'outro proprietário não lê quiz');
+rejects(fn()=>$service->handle('/quizzes/'.$id,'PUT',['config'=>$config,'version'=>1],$other,null),404,'outro proprietário não edita quiz');
+rejects(fn()=>$service->handle('/quizzes/'.$id.'/publish','POST',['version'=>1],$other,null),404,'outro proprietário não publica quiz');
+rejects(fn()=>$service->handle('/public/quiz-1/sessions','POST',[],null,$visitor),404,'rascunho não fica público');
+$published=$service->handle('/quizzes/'.$id.'/publish','POST',['version'=>1],$owner,null);check($published['url']==='https://example.com/quiz-1','link público óbvio com alias sequencial');
+check(count($files)===1&&!str_contains(reset($files),'points')&&!str_contains(reset($files),'routes')&&!str_contains(reset($files),'test-transport-token'),'GitHub recebe página sem regras e credenciais');
+$live=$service->handle('/public/quiz-1/sessions','POST',[],null,$visitor);check($live['kind']==='start','quiz público não exige login');
+rejects(fn()=>$service->handle('/sessions/'.$live['id'],'GET',[],null,hash('sha256','another')),404,'outra visita não lê a sessão');
+rejects(fn()=>$service->handle('/sessions/'.$live['id'],'GET',[],$owner,null),404,'login do dono não substitui cookie do visitante');
+$start=['version'=>0,'action'=>'start'];$view=$service->handle('/sessions/'.$live['id'].'/actions','POST',$start,null,$visitor);check(!isset($view['points'],$view['routes'],$view['score']),'tela não expõe pontuação nem grafo');
+rejects(fn()=>$service->handle('/sessions/'.$live['id'].'/actions','POST',$start,null,$visitor),409,'versão antiga não avança estado');
+rejects(fn()=>$service->handle('/sessions/'.$live['id'].'/actions','POST',['version'=>1,'action'=>'answer','optionId'=>Domain::id()],null,$visitor),400,'opção estranha recusada');
+rejects(fn()=>$service->handle('/sessions/'.$live['id'].'/actions','POST',['version'=>1,'action'=>'answer','optionId'=>$b,'score'=>999],null,$visitor),400,'pontuação do navegador recusada');
+$view=$service->handle('/sessions/'.$live['id'].'/actions','POST',['version'=>1,'action'=>'answer','optionId'=>$b],null,$visitor);check($view['kind']==='lead','resposta B abre resultado específico após captura');
+$contact=['version'=>2,'name'=>'Visitante','email'=>'teste@example.com','phone'=>'+5511999999999','consent'=>true];$view=$service->handle('/sessions/'.$live['id'].'/lead','POST',$contact,null,$visitor);check($view['kind']==='result'&&$view['title']==='Personalizado'&&$view['score']===70,'servidor gera resultado e calcula 70 pontos');
+rejects(fn()=>$service->handle('/sessions/'.$live['id'].'/lead','POST',$contact,null,$visitor),409,'contato não duplica');
+check(count($service->handle('/quizzes/'.$id.'/leads','GET',[],$owner,null)['leads'])===1,'contato real salvo para o dono');
+rejects(fn()=>$service->handle('/quizzes/'.$id.'/leads','GET',[],$other,null),404,'contato isolado por proprietário');
+$test=$service->handle('/quizzes/'.$id.'/sessions','POST',['mode'=>'test'],$owner,null);$state=Domain::initial('test',1000);$snapshot=Domain::config($config);$state=Domain::action($snapshot,$state,['version'=>0,'action'=>'start'],1000);$state=Domain::action($snapshot,$state,['version'=>1,'action'=>'answer','optionId'=>$a],1000);
+check(Domain::view($test['id'],2,$snapshot,$state,1000)['kind']==='loading','resposta A segue carregamento');
+rejects(fn()=>Domain::action($snapshot,$state,['version'=>2,'action'=>'advance'],2999),409,'temporizador antecipado bloqueado no servidor');$next=Domain::action($snapshot,$state,['version'=>2,'action'=>'advance'],3000);check($next['page']==='lead'&&$next['pending']===$result,'carregamento termina no resultado configurado');
+$back=Domain::action($snapshot,$state,['version'=>2,'action'=>'back'],1001);check($back['answers']===[],'voltar remove resposta abandonada');
+$config['intro']='Rascunho atualizado';$updated=$service->handle('/quizzes/'.$id,'PUT',['config'=>$config,'version'=>1],$owner,null);$stillLive=$service->handle('/public/quiz-1/sessions','POST',[],null,$visitor);check($stillLive['title']==='Começar','salvar rascunho não altera página publicada');
+$fail=true;rejects(fn()=>$service->handle('/quizzes/'.$id.'/publish','POST',['version'=>2],$owner,null),502,'falha do GitHub não confirma publicação');$fail=false;
+check($service->handle('/public/quiz-1/sessions','POST',[],null,$visitor)['title']==='Começar','falha mantém versão anterior acessível');
+$again=$service->handle('/quizzes/'.$id.'/publish','POST',['version'=>2],$owner,null);check($again['slug']==='quiz-1'&&$service->handle('/public/quiz-1/sessions','POST',[],null,$visitor)['title']==='Rascunho atualizado','republicação usa mesmo link e troca snapshot');
+check($service->handle('/sessions/'.$live['id'],'GET',[],null,$visitor)['score']===70,'sessão existente preserva snapshot');
+$key='/repos/2iPD/iza/contents/quiz-99/index.html';$files[$key]='<h1>Outro site</h1>';$before=$puts;rejects(fn()=>$publisher->publish('quiz-99','Teste'),409,'publicação não sobrescreve arquivo alheio');check($puts===$before,'arquivo preexistente permanece intacto');
+$bad=$config;$bad['name']='<script>alert(1)</script>';rejects(fn()=>Domain::config($bad),400,'HTML em texto bloqueado');$bad=$config;$bad['questions'][0]['routes'][0]=$stage;rejects(fn()=>Domain::config($bad),400,'ciclos condicionais bloqueados');
+rejects(fn()=>Domain::url('https://127.0.0.1/admin',['127.0.0.1']),400,'webhook interno bloqueado');rejects(fn()=>Domain::url('https://untrusted.example/path',['hooks.zapier.com']),400,'webhook exige domínio autorizado');
+$db->rate('test-rate',1,60);rejects(fn()=>$db->rate('test-rate',1,60),429,'limite persistente de tentativas');
+putenv('APP_ORIGIN=https://example.com');putenv('APP_SECRET='.str_repeat('x',64));$_SERVER['HTTP_ORIGIN']='https://other.example';$_SERVER['HTTP_X_QUIZ_ACTION']='1';rejects(fn()=>csrf(),403,'origem externa não grava dados');$_SERVER['HTTP_ORIGIN']='https://example.com';unset($_SERVER['HTTP_X_QUIZ_ACTION']);rejects(fn()=>csrf(),403,'gravação exige cabeçalho de ação');$_SERVER['HTTP_X_QUIZ_ACTION']='1';csrf();check(true,'origem e cabeçalho válidos aceitos');
+$test=$service->handle('/quizzes/'.$id.'/sessions','POST',['mode'=>'test'],$owner,null);$test=$service->handle('/sessions/'.$test['id'].'/actions','POST',['version'=>0,'action'=>'start'],$owner,null);$test=$service->handle('/sessions/'.$test['id'].'/actions','POST',['version'=>1,'action'=>'answer','optionId'=>$b],$owner,null);$test=$service->handle('/sessions/'.$test['id'].'/lead','POST',[...$contact,'version'=>2],$owner,null);check($test['score']===70&&count($service->handle('/quizzes/'.$id.'/leads','GET',[],$owner,null)['leads'])===1,'modo teste calcula sem salvar contato');
+echo "$passed verificações passaram.\n";
