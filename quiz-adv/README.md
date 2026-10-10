@@ -2,6 +2,16 @@
 
 Criador de quizzes editáveis com perguntas de múltipla escolha, perguntas de texto corrido, carregamento simulado e resultados diferentes por resposta. O painel fica em **/quiz-adv/**. Os visitantes usam **/quiz-1**, **/quiz-2** etc., sem login. A página inicial e o treinamento existentes neste repositório foram preservados.
 
+## Logo e cor de fundo
+
+Na aba **Aparência**, use **Logo da marca** para enviar uma imagem no lugar do nome no topo do quiz. PNG e WebP com canal alfa mantêm o fundo transparente. JPG também pode ser enviado, mas esse formato não tem transparência. O arquivo original pode ter até 5 MB; o editor reduz a imagem para até 1.000 × 500 pixels e otimiza o tamanho. A imagem final deve ter até 256 KB. SVG não é aceito. A logo fica salva junto ao quiz, sem depender de um endereço externo ou de uma pasta adicional de uploads.
+
+Você pode deixar o nome da marca vazio enquanto usa uma logo. **Remover logo e usar nome da marca** volta a exibir o texto. O nome, quando preenchido, também serve de descrição acessível da imagem.
+
+Use **Cor de fundo** para mudar o fundo do quiz, incluindo a página pública. A prévia atualiza na hora e os textos se ajustam a fundos claros ou escuros. **Restaurar fundo branco** desfaz a escolha. A **Cor principal** continua controlando os botões e destaques separadamente.
+
+As escolhas são específicas de cada quiz. Os quizzes antigos mantêm o nome da marca e o fundo branco até que você os edite. Para aplicar a aparência a um quiz já publicado, salve e clique em **Atualizar página**. A atualização da ferramenta não exige alterações no banco nem uma nova instalação.
+
 ## Perguntas de texto e contatos por quiz
 
 Em **Conteúdo → Adicionar etapa → Texto corrido**, escreva a pergunta, uma orientação opcional e escolha a etapa de destino após a resposta. A resposta é obrigatória, admite quebras de linha e tem limite de 2.000 caracteres validado no servidor. Perguntas de texto não acrescentam pontos. As demais perguntas continuam com a pontuação configurada e podem direcionar para perguntas de texto.

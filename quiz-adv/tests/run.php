@@ -76,4 +76,32 @@ $state=Domain::action($textOnly,Domain::initial('test'),['version'=>0,'action'=>
 $state=Domain::action($textOnly,$state,['version'=>2,'action'=>'back']);check($state['answers']===[],'voltar à pergunta remove texto abandonado');
 $invalid=$secondConfig;$invalid['questions'][1]['next']=$stage;rejects(fn()=>Domain::config($invalid),400,'pergunta de texto não cria ciclo');
 $initial=Domain::initial('test');$initial=Domain::action(Domain::config($secondConfig),$initial,['version'=>0,'action'=>'start']);rejects(fn()=>Domain::action(Domain::config($secondConfig),$initial,['version'=>1,'action'=>'answer','optionId'=>$a,'text'=>'Injetado']),400,'múltipla escolha rejeita resposta de texto extra');
+
+function transparentPng(int $width=1,int $height=1):string {$chunk=function($type,$data){return pack('N',strlen($data)).$type.$data.pack('N',crc32($type.$data));};$raw=str_repeat("\x00".str_repeat("\x00\x00\x00\x00",$width),$height);return "\x89PNG\r\n\x1a\n".$chunk('IHDR',pack('NNCCCCC',$width,$height,8,6,0,0,0)).$chunk('IDAT',gzcompress($raw)).$chunk('IEND','');}
+$png=transparentPng();$logo='data:image/png;base64,'.base64_encode($png);$brandedConfig=[...$config,'logoImage'=>$logo,'backgroundColor'=>'#112233','brand'=>''];
+$brandQuiz=$service->handle('/quizzes','POST',['config'=>$brandedConfig],$owner,null);check($brandQuiz['logoImage']===$logo&&$brandQuiz['brand']==='','logo pode substituir nome vazio da marca');
+check(base64_decode(explode(',',$brandQuiz['logoImage'])[1])===$png&&ord($png[25])===6,'canal alfa PNG preservado sem alterar a imagem');
+check($brandQuiz['backgroundColor']==='#112233','cor de fundo salva no quiz');
+$brandPublication=$service->handle('/quizzes/'.$brandQuiz['id'].'/publish','POST',['version'=>1],$owner,null);$brandView=$service->handle('/public/'.$brandPublication['slug'].'/sessions','POST',[],null,$visitor);check($brandView['logoImage']===$logo&&$brandView['backgroundColor']==='#112233','logo e fundo disponíveis na página pública');
+$brandView=$service->handle('/sessions/'.$brandView['id'].'/actions','POST',['version'=>0,'action'=>'start'],null,$visitor);check($brandView['logoImage']===$logo&&$brandView['backgroundColor']==='#112233','identidade visual permanece nas perguntas');
+$old=Domain::config($config);check($old['logoImage']===''&&$old['backgroundColor']==='#ffffff','quiz anterior recebe fundo branco e mantém nome da marca');
+$legacyView=Domain::view(Domain::id(),0,$config,Domain::initial('test'));check($legacyView['logoImage']===''&&$legacyView['backgroundColor']==='#ffffff','snapshot anterior à atualização continua funcionando');
+$removed=[...$brandedConfig,'logoImage'=>'','brand'=>'Minha marca'];$removedQuiz=$service->handle('/quizzes/'.$brandQuiz['id'],'PUT',['config'=>$removed,'version'=>1],$owner,null);check($removedQuiz['logoImage']===''&&$removedQuiz['brand']==='Minha marca','logo removida volta a usar nome da marca');
+$unchangedView=$service->handle('/public/'.$brandPublication['slug'].'/sessions','POST',[],null,$visitor);check($unchangedView['logoImage']===$logo,'rascunho de aparência não altera versão pública');
+$bad=$config;$bad['backgroundColor']='red;position:fixed';rejects(fn()=>Domain::config($bad),400,'cor de fundo recusa injeção CSS');
+$bad=$config;$bad['logoImage']='data:image/svg+xml;base64,'.base64_encode('<svg onload="alert(1)"/>');rejects(fn()=>Domain::config($bad),400,'SVG ativo não aceito como logo');
+$bad=$config;$bad['logoImage']='https://external.example/logo.png';rejects(fn()=>Domain::config($bad),400,'logo não carrega URL externa não autorizada');
+$bad=$config;$bad['logoImage']='data:image/png;base64,'.base64_encode('<script>alert(1)</script>');rejects(fn()=>Domain::config($bad),400,'arquivo disfarçado de PNG é recusado');
+$bad=$config;$bad['logoImage']='data:image/webp;base64,'.base64_encode($png);rejects(fn()=>Domain::config($bad),400,'MIME da logo deve corresponder ao arquivo');
+$bad=$config;$bad['logoImage']='data:image/png;base64,'.base64_encode(transparentPng(1001,1));rejects(fn()=>Domain::config($bad),400,'largura de logo excessiva é bloqueada no servidor');
+$bad=$config;$bad['logoImage']='data:image/png;base64,'.base64_encode(transparentPng(1,501));rejects(fn()=>Domain::config($bad),400,'altura de logo excessiva é bloqueada no servidor');
+$bad=$config;$bad['logoImage']='data:image/png;base64,'.base64_encode(str_repeat('x',262145));rejects(fn()=>Domain::config($bad),400,'logo acima do limite de tamanho é bloqueada');
+$bad=$removed;$bad['brand']='';rejects(fn()=>Domain::config($bad),400,'marca vazia exige logo válida');
+rejects(fn()=>$service->handle('/quizzes/'.$brandQuiz['id'],'GET',[],$other,null),404,'configuração da logo segue isolamento por proprietário');
+
+$webp='data:image/webp;base64,'.base64_encode(base64_decode('UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA'));check(Domain::logo($webp)===$webp,'imagem WebP válida é aceita');
+$bad=$config;$bad['logoImage']=null;rejects(fn()=>Domain::config($bad),400,'logo nula explícita é inválida');
+$bad=$config;$bad['backgroundColor']=null;rejects(fn()=>Domain::config($bad),400,'cor de fundo nula explícita é inválida');
+$bad=$config;$bad['logoImage']='data:image/png;base64,%%%';rejects(fn()=>Domain::config($bad),400,'base64 inválido recusado');
+$bad=$config;$bad['backgroundColor']='#AABBCC';check(Domain::config($bad)['backgroundColor']==='#aabbcc','cor de fundo normalizada no servidor');
 echo "$passed verificações passaram.\n";
