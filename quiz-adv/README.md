@@ -85,6 +85,6 @@ Os testes usam SQLite em memória e um transporte GitHub simulado. Verificam pro
 
 ## Baixar código do quiz
 
-**Baixar código** gera um ZIP completo do quiz selecionado, usando sua versão publicada. Inclui a aplicação PHP, editor, CSS, JavaScript, logo, perguntas, pontos e fluxos, com instruções no **LEIA-ME.md**. Não inclui contatos, dados do banco, configurações privadas ou outros quizzes. O webhook é removido para configurar novamente na nova instalação.
+**Baixar código** exporta somente o quiz selecionado, pronto, sem editor ou login. O ZIP inclui HTML, estilos, JavaScript, logo, configuração privada e uma API PHP que calcula pontuação e destinos no servidor. Extraia a pasta na nova hospedagem e abra seu endereço; não há banco ou instalação manual. Requer PHP 8.2+, HTTPS, sessões PHP e Apache com .htaccess. Hospedagem estática e funcionamento offline não são suportados.
 
-Instale em outra hospedagem com PHP 8.2+, MySQL, HTTPS, Apache/.htaccess e terminal. Use um banco novo, preencha as novas credenciais no modelo privado e execute os scripts de instalação e importação. O quiz funciona sem a hospedagem original ou GitHub; alterações são publicadas localmente. A pontuação e os destinos continuam no servidor. Hospedagem estática e funcionamento offline não são suportados.
+O arquivo usa a versão publicada. Atualize a página antes de baixar para incluir alterações do rascunho. Nenhuma senha, contato antigo ou outro quiz é incluído. Se houver coleta, os contatos novos ficam em private/contatos.jsonl, acessível pelo gerenciador de arquivos/SFTP. O webhook é deixado vazio. Leia as instruções no ZIP e mantenha a pasta private protegida de acesso HTTP.

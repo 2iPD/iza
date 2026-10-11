@@ -2,16 +2,14 @@
 declare(strict_types=1);
 namespace QuizAdv;
 final class QuizExport {
- public static function files(array $snapshot):array {
-  $root=dirname(__DIR__);$files=[];
-  // Explicit allowlist: never copy runtime configuration, sessions or database data.
-  foreach(['index.php','api.php','login.php','.htaccess','assets/editor.js','assets/player.js','assets/style.css','private/.htaccess','private/Domain.php','private/bootstrap.php','private/Store.php','private/GitHub.php','private/Service.php','private/Export.php','private/install.php','private/password-hash.php','private/schema.sql','private/restore-export.php','private/PORTABLE.md'] as $path){$content=file_get_contents($root.'/'.$path);if($content===false)throw new ApiError(500,'Não foi possível preparar a exportação.');$files[]=['path'=>'quiz-adv/'.$path,'content'=>$content];}
-  $snapshot['webhook']='';
-  $files[]=['path'=>'quiz-adv/private/quiz-export.json','content'=>encode($snapshot)];
-  $template=file_get_contents($root.'/private/config.example.php');if($template===false)throw new ApiError(500,'Configuração modelo indisponível.');$template=str_replace(["'GITHUB_OWNER'=>'2iPD'","'GITHUB_REPO'=>'iza'","'GITHUB_TOKEN'=>'TOKEN_PRIVADO_COM_CONTENTS_READ_WRITE_APENAS_NESTE_REPOSITORIO'"],["'GITHUB_OWNER'=>''","'GITHUB_REPO'=>''","'GITHUB_TOKEN'=>''"],$template);$template=str_replace(" 'WEBHOOK_HOSTS'=>"," 'LOCAL_PUBLICATION'=>true,\n 'WEBHOOK_HOSTS'=>",$template);
-  $files[]=['path'=>'quiz-adv/private/config.example.php','content'=>$template];
-  $files[]=['path'=>'quiz-1/index.html','content'=>publicShell($snapshot['name'])];
-  $files[]=['path'=>'LEIA-ME.md','content'=>file_get_contents($root.'/private/PORTABLE.md')];return $files;
+ public static function files(array $snapshot,string $slug='quiz-1'):array {
+  Domain::slug($slug);$root=dirname(__DIR__);$snapshot['webhook']='';$folder=$slug.'/';$files=[];
+  foreach(['assets/player.js','assets/style.css','private/Domain.php','private/.htaccess'] as $path){$content=file_get_contents($root.'/'.$path);if($content===false)throw new ApiError(500,'Não foi possível preparar o pacote.');if($path==='assets/player.js'){$content=str_replace("'/quiz-adv/api.php'+url.replace(/^\\/api/,'')","'./api.php?path='+encodeURIComponent(url.replace(/^\\/api/,''))",$content);$content=str_replace("const slug=location.pathname.split('/').filter(Boolean)[0];","const slug='quiz-1';",$content);}$files[]=['path'=>$folder.$path,'content'=>$content];}
+  $api=file_get_contents(__DIR__.'/standalone-api.php');if($api===false)throw new ApiError(500,'API de exportação indisponível.');$files[]=['path'=>$folder.'api.php','content'=>$api];$files[]=['path'=>$folder.'private/quiz.json','content'=>encode($snapshot)];
+  $title=htmlspecialchars($snapshot['name'],ENT_QUOTES|ENT_SUBSTITUTE,'UTF-8');$files[]=['path'=>$folder.'index.html','content'=>'<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'.$title.'</title><link rel="stylesheet" href="assets/style.css"></head><body><main id="player" class="secure-player"><p>Carregando quiz…</p></main><script src="assets/player.js"></script></body></html>'];
+  $files[]=['path'=>$folder.'.htaccess','content'=>"Options -Indexes\nDirectoryIndex index.html\n<FilesMatch \"^\\.\">\nRequire all denied\n</FilesMatch>\n"];
+  $files[]=['path'=>'LEIA-ME.md','content'=>"# Quiz pronto para hospedagem\n\nExtraia a pasta ".$slug." na raiz pública da nova hospedagem e abra https://SEU-DOMINIO/".$slug."/. Você pode renomear a pasta ou colocar seu conteúdo na raiz. Não há editor, login, instalação, banco de dados ou dependência da hospedagem original.\n\nRequer PHP 8.2+, HTTPS, sessões PHP e Apache com .htaccess habilitado. Não é compatível com hospedagem apenas estática. A pasta private precisa permitir escrita pelo PHP caso você escolha coleta de contato. Não remova seu .htaccess: ele protege perguntas, regras e contatos de acesso público. Confira que abrir private/quiz.json diretamente retorna 403. Em outro servidor web, bloqueie completamente o acesso HTTP à pasta private antes de publicar.\n\nA pontuação, os fluxos, carregamentos e respostas por faixa são processados pela API PHP incluída. Se houver coleta, os contatos desta instalação ficam em private/contatos.jsonl; baixe esse arquivo pelo gerenciador da hospedagem ou SFTP. Se o final for resultado, não há coleta. O webhook foi removido. O ZIP contém somente a versão publicada do quiz selecionado, sem contatos antigos ou credenciais.\n"];
+  return $files;
  }
  public static function restore(Store $db,array $config,string $email,array $hosts):string {
   $snapshot=Domain::config($config,$hosts);
