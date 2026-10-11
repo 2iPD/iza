@@ -16,6 +16,14 @@ As escolhas são específicas de cada quiz. Os quizzes antigos mantêm o nome da
 
 ## Perguntas de texto e contatos por quiz
 
+### Resultado por pontuação
+
+Em **Conteúdo → Adicionar etapa → Resultado por pontuação**, configure o título da tela final e até três faixas com **Até [pontuação] pontos → [resposta personalizada]**. Os limites são inclusivos e devem estar em ordem crescente, sem repetir valores. Exemplo: até 10, até 20, até 30; a segunda faixa atende de 11 a 20 e a terceira de 21 a 30. Preencha também a resposta para pontuações acima da última faixa. O botão da oferta e seu link continuam configuráveis nessa tela.
+
+A soma considera somente as opções de múltipla escolha realmente respondidas no caminho percorrido; perguntas de texto não acrescentam pontos. O servidor calcula o total, escolhe a primeira faixa que o contém e entrega apenas a resposta correspondente ao visitante. A etapa mostra o total de pontos em destaque depois da captura de contato, encerra esse caminho e pode ser escolhida como destino de uma pergunta ou de um carregamento. A prévia do editor mostra as faixas; use **Testar quiz** para conferir a soma real. Resultados comuns e quizzes existentes continuam funcionando.
+
+Salve e clique em **Atualizar página** para aplicar as faixas a um quiz público. Não é necessário alterar o banco ou executar a instalação novamente.
+
 Em **Conteúdo → Adicionar etapa → Texto corrido**, escreva a pergunta, uma orientação opcional e escolha a etapa de destino após a resposta. A resposta é obrigatória, admite quebras de linha e tem limite de 2.000 caracteres validado no servidor. Perguntas de texto não acrescentam pontos. As demais perguntas continuam com a pontuação configurada e podem direcionar para perguntas de texto.
 
 O botão **Contatos** abre a lista do quiz selecionado no editor. O título identifica o quiz, e o seletor **Mostrar contatos do quiz** permite trocar de lista. Cada quiz guarda seus próprios contatos pelo UUID de origem, inclusive quando vários quizzes pertencem ao mesmo administrador. Um novo quiz começa vazio. Em **Ver respostas**, consulte as respostas de múltipla escolha e os textos de cada contato. As listas mostram até os mil contatos mais recentes do quiz, com o total correspondente.

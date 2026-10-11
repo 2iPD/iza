@@ -20,3 +20,5 @@
 .quiz input:not([type=checkbox]),.quiz textarea{color:var(--quiz-field-foreground,#343247);background:var(--quiz-field-background,#fff)}.quiz textarea::placeholder,.quiz input::placeholder{color:var(--quiz-field-foreground,#343247);opacity:.65}
 
 .quiz a.quiz-cta{color:#fff}
+
+.score-total{display:flex;align-items:baseline;justify-content:center;gap:10px;margin:24px 0}.score-total strong{font-size:48px;line-height:1;font-family:Manrope,sans-serif}.score-total span{font-size:16px}.score-bands input{max-width:180px}.score-bands textarea{min-height:100px}.score-bands button:disabled,#add-score-band:disabled{opacity:.5;cursor:default}
