@@ -85,4 +85,6 @@ Os testes usam SQLite em memória e um transporte GitHub simulado. Verificam pro
 
 ## Baixar código do quiz
 
-O botão **Baixar código** gera um arquivo `quiz-N.html` com o CSS e o JavaScript da versão publicada. Publique primeiro; alterações de rascunho entram no download depois de **Atualizar página**. Coloque o HTML na mesma hospedagem e domínio do QUIZ ADV, em qualquer pasta: o identificador do quiz já está fixado no arquivo. A aplicação PHP, o banco e o quiz publicado precisam permanecer disponíveis em `/quiz-adv/`. O arquivo não funciona offline nem em outro domínio sem migrar o backend. Pontuação e fluxos são calculados no servidor; credenciais, contatos e regras privadas não são incluídos.
+**Baixar código** gera um ZIP completo do quiz selecionado, usando sua versão publicada. Inclui a aplicação PHP, editor, CSS, JavaScript, logo, perguntas, pontos e fluxos, com instruções no **LEIA-ME.md**. Não inclui contatos, dados do banco, configurações privadas ou outros quizzes. O webhook é removido para configurar novamente na nova instalação.
+
+Instale em outra hospedagem com PHP 8.2+, MySQL, HTTPS, Apache/.htaccess e terminal. Use um banco novo, preencha as novas credenciais no modelo privado e execute os scripts de instalação e importação. O quiz funciona sem a hospedagem original ou GitHub; alterações são publicadas localmente. A pontuação e os destinos continuam no servidor. Hospedagem estática e funcionamento offline não são suportados.
