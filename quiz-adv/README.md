@@ -10,6 +10,8 @@ Você pode deixar o nome da marca vazio enquanto usa uma logo. **Remover logo e 
 
 Use **Cor de fundo** para mudar o fundo do quiz, incluindo a página pública. A prévia atualiza na hora e os textos se ajustam a fundos claros ou escuros. **Restaurar fundo branco** desfaz a escolha. A **Cor principal** continua controlando os botões e destaques separadamente.
 
+Em **Cor dos textos**, escolha uma cor para títulos, descrições, perguntas, respostas, campos de texto e nome da marca. A prévia atualiza imediatamente. **Usar cor automática dos textos** restaura o ajuste ao fundo claro ou escuro. Os quizzes anteriores continuam no modo automático até que você escolha uma cor manual. As opções e os campos acompanham o fundo ao usar texto personalizado; confira na prévia se a combinação escolhida está legível.
+
 As escolhas são específicas de cada quiz. Os quizzes antigos mantêm o nome da marca e o fundo branco até que você os edite. Para aplicar a aparência a um quiz já publicado, salve e clique em **Atualizar página**. A atualização da ferramenta não exige alterações no banco nem uma nova instalação.
 
 ## Perguntas de texto e contatos por quiz

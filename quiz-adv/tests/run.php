@@ -104,4 +104,14 @@ $bad=$config;$bad['logoImage']=null;rejects(fn()=>Domain::config($bad),400,'logo
 $bad=$config;$bad['backgroundColor']=null;rejects(fn()=>Domain::config($bad),400,'cor de fundo nula explícita é inválida');
 $bad=$config;$bad['logoImage']='data:image/png;base64,%%%';rejects(fn()=>Domain::config($bad),400,'base64 inválido recusado');
 $bad=$config;$bad['backgroundColor']='#AABBCC';check(Domain::config($bad)['backgroundColor']==='#aabbcc','cor de fundo normalizada no servidor');
+
+$customText=[...$config,'textColor'=>'#AABBCC','backgroundColor'=>'#112233'];$textQuiz=$service->handle('/quizzes','POST',['config'=>$customText],$owner,null);check($textQuiz['textColor']==='#aabbcc','cor dos textos normalizada e salva no quiz');
+$textPublication=$service->handle('/quizzes/'.$textQuiz['id'].'/publish','POST',['version'=>1],$owner,null);$textView=$service->handle('/public/'.$textPublication['slug'].'/sessions','POST',[],null,$visitor);check($textView['textColor']==='#aabbcc','cor dos textos entregue no quiz público');
+$textView=$service->handle('/sessions/'.$textView['id'].'/actions','POST',['version'=>0,'action'=>'start'],null,$visitor);check($textView['textColor']==='#aabbcc','cor dos textos permanece nas perguntas');
+$restore=[...$customText,'textColor'=>''];$service->handle('/quizzes/'.$textQuiz['id'],'PUT',['config'=>$restore,'version'=>1],$owner,null);check($service->handle('/public/'.$textPublication['slug'].'/sessions','POST',[],null,$visitor)['textColor']==='#aabbcc','alterar cor no rascunho preserva versão pública');
+$service->handle('/quizzes/'.$textQuiz['id'].'/publish','POST',['version'=>2],$owner,null);check($service->handle('/public/'.$textPublication['slug'].'/sessions','POST',[],null,$visitor)['textColor']==='','restaurar automático funciona após republicar');
+check($service->handle('/sessions/'.$textView['id'],'GET',[],null,$visitor)['textColor']==='#aabbcc','sessão existente conserva a aparência da versão inicial');
+check(Domain::config($config)['textColor']===''&&Domain::view(Domain::id(),0,$config,Domain::initial('test'))['textColor']==='','quizzes antigos mantêm cor automática');
+foreach(['red','transparent','#abc','red;position:fixed',null,42] as $value){$bad=[...$config,'textColor'=>$value];rejects(fn()=>Domain::config($bad),400,'cor de texto inválida recusada: '.get_debug_type($value));}
+rejects(fn()=>$service->handle('/quizzes/'.$textQuiz['id'],'PUT',['config'=>$restore,'version'=>2],$other,null),404,'outro proprietário não altera a cor dos textos');
 echo "$passed verificações passaram.\n";
