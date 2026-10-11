@@ -82,3 +82,7 @@ Mantenha PHP e a hospedagem atualizados, faça backup do banco e do arquivo priv
 `node quiz-adv/tests/ui.cjs`
 
 Os testes usam SQLite em memória e um transporte GitHub simulado. Verificam propriedade, sessões, pontuação, ramificações, tempo de carregamento, publicação, falhas e preservação de arquivos. Não conectam à Hostinger nem substituem a validação final com seu MySQL e domínio. Também foram verificados a sintaxe PHP e os arquivos JavaScript. Nenhuma credencial real foi incluída.
+
+## Baixar código do quiz
+
+O botão **Baixar código** gera um arquivo `quiz-N.html` com o CSS e o JavaScript da versão publicada. Publique primeiro; alterações de rascunho entram no download depois de **Atualizar página**. Coloque o HTML na mesma hospedagem e domínio do QUIZ ADV, em qualquer pasta: o identificador do quiz já está fixado no arquivo. A aplicação PHP, o banco e o quiz publicado precisam permanecer disponíveis em `/quiz-adv/`. O arquivo não funciona offline nem em outro domínio sem migrar o backend. Pontuação e fluxos são calculados no servidor; credenciais, contatos e regras privadas não são incluídos.
