@@ -22,3 +22,7 @@
 .quiz a.quiz-cta{color:#fff}
 
 .score-total{display:flex;align-items:baseline;justify-content:center;gap:10px;margin:24px 0}.score-total strong{font-size:48px;line-height:1;font-family:Manrope,sans-serif}.score-total span{font-size:16px}.score-bands input{max-width:180px}.score-bands textarea{min-height:100px}.score-bands button:disabled,#add-score-band:disabled{opacity:.5;cursor:default}
+
+/* Keep hover, selection and keyboard focus inside the quiz theme. */
+.quiz .quiz-option:hover,.quiz .quiz-option.selected,.quiz .quiz-option:focus-visible{background:var(--quiz-option-selected-background,#f6f3ff);color:var(--quiz-option-selected-foreground,#343247);border-color:var(--accent);box-shadow:inset 0 0 0 1px currentColor}
+.quiz .quiz-option:focus-visible{outline:2px solid currentColor;outline-offset:3px}
