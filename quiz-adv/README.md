@@ -14,19 +14,31 @@ Em **Cor dos textos**, escolha uma cor para títulos, descrições, perguntas, r
 
 As escolhas são específicas de cada quiz. Os quizzes antigos mantêm o nome da marca e o fundo branco até que você os edite. Para aplicar a aparência a um quiz já publicado, salve e clique em **Atualizar página**. A atualização da ferramenta não exige alterações no banco nem uma nova instalação.
 
+## Página final: coleta ou resultado
+
+Em **Conteúdo** ou **Conversão**, escolha a **Página final**. **Coleta de nome, e-mail e telefone** apresenta o formulário depois das respostas e dos carregamentos; o envio salva o contato e mostra uma confirmação. **Resultado padrão** ou uma etapa de **Resultado / Resultado por pontuação** termina diretamente no resultado, sem formulário, sem criar contato e sem enviar webhook de contato.
+
+Ao adicionar uma etapa de resultado, ela passa a ser a página final selecionada. Em uma etapa existente, clique em **Usar esta etapa como página final**. Os destinos antigos de encerramento acompanham essa escolha. A sequência percorre perguntas e carregamentos, ignorando etapas de resultado que não foram escolhidas como final. Um destino explícito para a página final pode encerrar uma ramificação antes das demais perguntas.
+
+Para finais diferentes por resposta, selecione **Avançado: finais diferentes por destino das respostas** e configure cada destino. Nesse modo, cada caminho pode terminar em coleta, resultado padrão ou uma etapa de resultado específica.
+
+Nas páginas de resultado, marque **Exibir botão nesta página** e preencha o texto e um link HTTPS público. Desmarque para ocultá-lo. O resultado padrão tem uma opção equivalente em Conversão.
+
+Após atualizar os arquivos da ferramenta na Hostinger, salve o quiz e clique em **Atualizar página**. Teste em uma nova sessão com **Refazer quiz**; visitas já iniciadas conservam a versão anterior. Não há alteração no banco de dados.
+
 ## Perguntas de texto e contatos por quiz
 
 ### Resultado por pontuação
 
 Em **Conteúdo → Adicionar etapa → Resultado por pontuação**, configure o título da tela final e até três faixas com **Até [pontuação] pontos → [resposta personalizada]**. Os limites são inclusivos e devem estar em ordem crescente, sem repetir valores. Exemplo: até 10, até 20, até 30; a segunda faixa atende de 11 a 20 e a terceira de 21 a 30. Preencha também a resposta para pontuações acima da última faixa. O botão da oferta e seu link continuam configuráveis nessa tela.
 
-A soma considera somente as opções de múltipla escolha realmente respondidas no caminho percorrido; perguntas de texto não acrescentam pontos. O servidor calcula o total, escolhe a primeira faixa que o contém e entrega apenas a resposta correspondente ao visitante. A etapa mostra o total de pontos em destaque depois da captura de contato, encerra esse caminho e pode ser escolhida como destino de uma pergunta ou de um carregamento. A prévia do editor mostra as faixas; use **Testar quiz** para conferir a soma real. Resultados comuns e quizzes existentes continuam funcionando.
+A soma considera somente as opções de múltipla escolha realmente respondidas no caminho percorrido; perguntas de texto não acrescentam pontos. O servidor calcula o total, escolhe a primeira faixa que o contém e entrega apenas a resposta correspondente ao visitante. A etapa mostra o total de pontos em destaque diretamente, sem coleta de contato, encerra esse caminho e pode ser escolhida como destino de uma pergunta ou de um carregamento. A prévia do editor mostra as faixas; use **Testar quiz** para conferir a soma real. Resultados comuns e quizzes existentes continuam funcionando.
 
 Salve e clique em **Atualizar página** para aplicar as faixas a um quiz público. Não é necessário alterar o banco ou executar a instalação novamente.
 
 Em **Conteúdo → Adicionar etapa → Texto corrido**, escreva a pergunta, uma orientação opcional e escolha a etapa de destino após a resposta. A resposta é obrigatória, admite quebras de linha e tem limite de 2.000 caracteres validado no servidor. Perguntas de texto não acrescentam pontos. As demais perguntas continuam com a pontuação configurada e podem direcionar para perguntas de texto.
 
-O botão **Contatos** abre a lista do quiz selecionado no editor. O título identifica o quiz, e o seletor **Mostrar contatos do quiz** permite trocar de lista. Cada quiz guarda seus próprios contatos pelo UUID de origem, inclusive quando vários quizzes pertencem ao mesmo administrador. Um novo quiz começa vazio. Em **Ver respostas**, consulte as respostas de múltipla escolha e os textos de cada contato. As listas mostram até os mil contatos mais recentes do quiz, com o total correspondente.
+O botão **Contatos** abre a lista do quiz selecionado no editor. O título identifica o quiz, e o seletor **Mostrar contatos do quiz** permite trocar de lista. Quando a página final inclui coleta, cada quiz guarda seus próprios contatos pelo UUID de origem, inclusive quando vários quizzes pertencem ao mesmo administrador. Um novo quiz começa vazio. Em **Ver respostas**, consulte as respostas de múltipla escolha e os textos de cada contato. As listas mostram até os mil contatos mais recentes do quiz, com o total correspondente.
 
 Esta atualização não altera tabelas, contatos existentes nem configurações privadas. Atualize os arquivos da aplicação na Hostinger pela implantação do GitHub e recarregue o painel. Não é necessário executar a instalação novamente. Para incluir a nova pergunta em um quiz já público, salve e clique em **Atualizar página**.
 
