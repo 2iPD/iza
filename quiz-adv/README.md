@@ -88,3 +88,7 @@ Os testes usam SQLite em memória e um transporte GitHub simulado. Verificam pro
 **Baixar código** exporta somente o quiz selecionado, pronto, sem editor ou login. O ZIP inclui HTML, estilos, JavaScript, logo, configuração privada e uma API PHP que calcula pontuação e destinos no servidor. Extraia a pasta na nova hospedagem e abra seu endereço; não há banco ou instalação manual. Requer PHP 8.2+, HTTPS, sessões PHP e Apache com .htaccess. Hospedagem estática e funcionamento offline não são suportados.
 
 O arquivo usa a versão publicada. Atualize a página antes de baixar para incluir alterações do rascunho. Nenhuma senha, contato antigo ou outro quiz é incluído. Se houver coleta, os contatos novos ficam em private/contatos.jsonl, acessível pelo gerenciador de arquivos/SFTP. O webhook é deixado vazio. Leia as instruções no ZIP e mantenha a pasta private protegida de acesso HTTP.
+
+## Duplicar quiz
+
+Selecione um quiz e clique em **Duplicar quiz**. O editor salva suas alterações antes de copiar. O novo rascunho recebe o nome **Nome original (cópia)**, novas identidades UUID e mantém perguntas, pontos, ramificações, final, logo e cores. Os contatos, sessões e link público não são copiados. Edite a cópia e publique quando desejar; ela terá um link próprio.
