@@ -26,3 +26,13 @@
 /* Keep hover, selection and keyboard focus inside the quiz theme. */
 .quiz .quiz-option:hover,.quiz .quiz-option.selected,.quiz .quiz-option:focus-visible{background:var(--quiz-option-selected-background,#f6f3ff);color:var(--quiz-option-selected-foreground,#343247);border-color:var(--accent);box-shadow:inset 0 0 0 1px currentColor}
 .quiz .quiz-option:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+
+/* Compact mobile quiz layout, including the editor mobile preview. */
+#live .quiz{padding:8px 11.5px 26px}
+#live .quiz-logo-image{max-height:165px}
+@media(max-width:710px){
+ .quiz-page .secure-player{margin:10px auto;padding:8px}
+ .secure-player .quiz{padding:8px 11.5px 26px}
+ #test-body .quiz{padding:12.5px 19px 35px}
+ .secure-player .quiz-logo-image,#test-body .quiz-logo-image{max-height:165px}
+}
